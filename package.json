@@ -6,9 +6,11 @@
   "dependencies": {
     "marked": "^0.5.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^23.5.0"
+  },
   "scripts": {
-    "test": "Jest"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,9 @@
   ],
   "author": "Evelyn Gálvez <evelyn.galvez.p@gmail.com>",
   "license": "ISC",
+  "bin": {
+    "md-links": "index.js"
+  },
   "bugs": {
     "url": "https://github.com/EvelynGalvez/scl-2018-01-FE-markdown/issues"
   },

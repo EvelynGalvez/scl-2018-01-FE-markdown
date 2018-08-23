@@ -1,0 +1,1 @@
+let allowedExtensions = /(.md)$/i;
