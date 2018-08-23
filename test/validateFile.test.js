@@ -1,4 +1,4 @@
-const validateFile = requiere('./js/validateFile');
+const validateFile = require('./js/validateFile');
 
 
 test('debería retornar true para archivo con extensión md', () => {
