@@ -1,7 +1,7 @@
-const validateFile = require('../js/validateFile');
+const mdLinks = require('../js/mdLinks');
 
-test('debería retornar true para path absoluto', () => {
-  expect(isAbsolut('')).toBe(true);
+test('función routeConstruction debería retornar un valor', () => {
+  expect(directory('')).toBe(true);
 });
 
 test('debería retornar true para archivo con extensión .md', () => {

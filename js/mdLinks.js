@@ -3,18 +3,23 @@ const fs = require('fs');
 const path = require('path');
 const linkExtractor = require('./linkExtractor');
 const options = require('../index');
-options.validate = process.argv[3];
-const directory = process.cwd();
-console.log('durectorio: ' + directory);
-let route = process.argv[2];
-console.log('ruta: ' + path.resolve(route));
+
+const routeConstruction = () => {
+  options.validate = process.argv[3];
+  const directory = process.cwd();
+  let route = process.argv[2];
+  let absRoute = path.resolve(route);
+  console.log('ruta: ' + absRoute);
+  return absRoute;
+};
+
 exports.mdLinks = (markdownLinkExtractor) => {
-  fs.readdir(path.resolve(route), (error, files) => {
+  fs.readdir(routeConstruction(), (error, files) => {
     files.forEach(file => {
       if (path.extname(file) === '.md') {
         console.log('se han encontrado archivos .md:');
         console.log(file);
-        let fileMD = path.resolve(route) + '\\' + file;
+        let fileMD = routeConstruction() + '\\' + file;
         console.log(fileMD);
         fs.readFile(fileMD, 'utf8', (err, data) => {
           if (err) {
