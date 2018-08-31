@@ -4,7 +4,17 @@ const path = require('path');
 const linkExtractor = require('./linkExtractor');
 const options = {};
 
-console.log('process.argv: ' + JSON.stringify(process.argv));
+const routeIsAbsolute = () => {
+  if (path.isAbsolute(process.argv[3])) {
+    return true;
+  }
+};
+
+const ruoteIsRelative = () => {
+  if (path.isRelative(process.argv[3])) {
+    return true;
+  };
+};
 
 // Construcción de la ruta para buscar el archivo.
 const routeConstruction = () => {
@@ -13,7 +23,6 @@ const routeConstruction = () => {
     const directory = process.cwd();
     let route = process.argv[2];
     let absRoute = path.resolve(route);
-    console.log('ruta: ' + absRoute);
     return absRoute;
   } else {
     let error = 'Debes ingresar la ruta al archivo que deseas analizar, relativa a tu ubicación actual';
@@ -21,6 +30,7 @@ const routeConstruction = () => {
   }
   return;
 };
+
 
 exports.mdLinks = () => {
   if (routeConstruction()) {
@@ -32,14 +42,19 @@ exports.mdLinks = () => {
         if (err) {
           console.log(err.message);
         } else {
+          let line = data.split('\n').map((element, index) => linkExtractor.markdownLinkExtractor(element, index + 1));
+          line = line.filter(element => element.length !== 0);
+          let lineLinks = line.reduce((value1, value2) => value1.concat(value2));
           let dataLinks = linkExtractor.markdownLinkExtractor(data);
-          dataLinks.forEach(link => {
-            fetch(link.href, fileMD).then((response) => {
+          lineLinks.forEach(element => {
+            fetch(element.href, fileMD).then((response) => {
               if (options.validate === '--validate') {
-                console.log(fileMD + ' ' + link.href + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
+                console.log(fileMD + ' ' + element.href + ' ' + '  linea en documento: ' + element.line + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
               } else {
-                console.log(fileMD + ' ' + link.href);
+                console.log(fileMD + ' ' + element.href + '  linea en documento: ' + element.line);
               }
+            }).catch((error) => {
+              console.log(fileMD + ' ' + element.href + '  linea en documento: ' + element.line + '  ' + 'link caído');
             });
           });
         }
@@ -57,14 +72,19 @@ exports.mdLinks = () => {
               if (err) {
                 console.log(err.message);
               } else {
+                let line = data.split('\n').map((element, index) => linkExtractor.markdownLinkExtractor(element, index + 1));
+                line = line.filter(element => element.length !== 0);
+                let lineLinks = line.reduce((value1, value2) => value1.concat(value2));
                 let dataLinks = linkExtractor.markdownLinkExtractor(data);
-                dataLinks.forEach(link => {
-                  fetch(link.href, fileMD).then((response) => {
+                lineLinks.forEach(element => {
+                  fetch(element.href, fileMD).then((response) => {
                     if (options.validate === '--validate') {
-                      console.log(fileMD + ' ' + link.href + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
+                      console.log(fileMD + ' ' + element.href + ' ' + '  linea en documento: ' + element.line + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
                     } else {
-                      console.log(fileMD + ' ' + link.href);
+                      console.log(fileMD + ' ' + element.href + '  linea en documento: ' + element.line);
                     }
+                  }).catch((error) => {
+                    console.log(fileMD + ' ' + element.href + '  linea en documento: ' + element.line + '  ' + 'link caído');
                   });
                 });
               }

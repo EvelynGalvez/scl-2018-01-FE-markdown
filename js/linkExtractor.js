@@ -5,7 +5,7 @@ const Marked = require('marked');
 // Función necesaria para extraer los links usando marked
 // (tomada desde biblioteca del mismo nombre y modificada para el ejercicio)
 // Recibe texto en markdown y retorna sus links en un arreglo
-exports.markdownLinkExtractor = (markdown) => {
+exports.markdownLinkExtractor = (markdown, line) => {
   const links = [];
   const renderer = new Marked.Renderer();
 
@@ -21,6 +21,7 @@ exports.markdownLinkExtractor = (markdown) => {
       href: href,
       text: text,
       title: title,
+      line: line,
     });
   };
   renderer.image = function(href, title, text) {
@@ -30,6 +31,7 @@ exports.markdownLinkExtractor = (markdown) => {
       href: href,
       text: text,
       title: title,
+      line: line,
     });
   };
   Marked(markdown, {renderer: renderer});
