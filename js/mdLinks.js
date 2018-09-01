@@ -4,12 +4,14 @@ const path = require('path');
 const linkExtractor = require('./linkExtractor');
 const options = {};
 
+// Verifica si ruta es absoluta
 const routeIsAbsolute = () => {
   if (path.isAbsolute(process.argv[3])) {
     return true;
   }
 };
 
+// Verifica si ruta es relativa 
 const ruoteIsRelative = () => {
   if (path.isRelative(process.argv[3])) {
     return true;
@@ -33,7 +35,7 @@ const routeConstruction = () => {
 
 
 exports.mdLinks = () => {
-  if (routeConstruction()) {
+  if (routeConstruction()) { // Si existe la ruta, se realiza el análisis de archivos y/o directorios
     let stats = fs.statSync(routeConstruction());
     if (stats.isFile()) {
       console.log('ruta corresponde a un archivo');
@@ -97,42 +99,5 @@ exports.mdLinks = () => {
     } else {
       console.log('no es una ruta válida');
     }
-    // return;
   }
 };
-
-/*
-exports.mdLinks = (markdownLinkExtractor) => {
-  if (routeConstruction()) {
-    fs.readdir(routeConstruction(), (error, files) => {
-      files.forEach(file => {
-        if (path.extname(file) === '.md') {
-          console.log('se han encontrado archivos .md:');
-          console.log(file);
-          let fileMD = routeConstruction() + '\\' + file;
-          console.log(fileMD);
-        *  fs.readFile(fileMD, 'utf8', (err, data) => {
-            if (err) {
-              console.log(err.message);
-            } else {
-              let dataLinks = linkExtractor.markdownLinkExtractor(data);
-              dataLinks.forEach(link => {
-                fetch(link.href, fileMD).then((response) => {
-                  if (options.validate === '--validate') {
-                    console.log(fileMD + ' ' + link.href + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
-                  } else {
-                    console.log(fileMD + ' ' + link.href);
-                  }
-                });
-              });
-            }
-          }); *
-        } else {
-          console.log('No se encontraron archivos .md');
-        }
-      });
-    });
-    return;
-  }
-};
-*/
