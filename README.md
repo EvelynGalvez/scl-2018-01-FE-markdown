@@ -16,3 +16,9 @@ Para utilizar md-links, debes tener instalado en tu equipo node.js y seguir las 
 
 Al ser ejecutados los comandos correctamente, la libería mostrará en la terminal los links funcionales y caídos del documento que previamente fue asignado para escanear, identificando la ruta al archivo, el link propiamente tal, la línea en que está contenido en el archivo y según si deseas validar el link o no, mostrará la respuesta respectiva al hacer una petición http.
 
+### Planificación
+
+### Versiones
+
+### Desarrollado por 
+
