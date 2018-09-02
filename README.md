@@ -6,9 +6,9 @@ Markdown es un lenguaje muy popular en el mundo de los desarrolladores, permite 
 
 Muchas veces los documentos en este formato contienen links que redirigen a diversas páginas web, pero en ocasiones uno o más links ya no funcionan. Para agilizar la tarea de detectar qué link se encuentra caído y cuáles se encuentran funcionales, se creó esta librería. Para su utilización sólo debes seguir las instrucciones de instalación que se detallan más adelante; además de tener ciertas herramientas instaladas previamente, las que también se detallan.
 
-### Instalación
+## Instalación
 
-## Previamente 
+### Previamente 
 
 Para utilizar md-links, debes tener instalado previamente en tu equipo node.js y seguir las siguientes indicaciones:
 
@@ -24,7 +24,7 @@ $npm install node-fetch --save
 
 ~~~
 
-## Integración de md-links a tu trabajo
+### Integración de md-links a tu trabajo
 
 * Instala la librería con el siguiente comando con la terminal situada en el directorio de tu proyecto
 ~~~
@@ -41,7 +41,7 @@ $md-links <ruta_directorio>
 $md-links <ruta_archivo>
 ~~~
 
-* En ambos casos anteriores, si deseas validar funcionalidad de los links contenidos en los archivos .md, sólo debes agregar un espacio, seguido del comando "--validate". El siguiente ejemplo muestra como se efecturía la operación, situándonos en la carpeta contenedora del archivo "ejemplo_archivo_md1.md". Si estás afuera del nivel de tu archivo a analizar, simplemente entrega la ruta relativa a tu ubicación actual.
+* En ambos casos, si deseas validar funcionalidad de los links contenidos en los archivos .md, sólo debes agregar un espacio, seguido del comando "--validate". El siguiente ejemplo muestra como se efecturía la operación, situándonos en la carpeta contenedora del archivo "ejemplo_archivo_md1.md". Si estás afuera del nivel de tu archivo a analizar, simplemente entrega la ruta relativa a tu ubicación actual.
 ~~~
 $md-links ejemplo_archivo_md1.md --validate
 ~~~
