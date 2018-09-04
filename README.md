@@ -58,6 +58,9 @@ La planificación fue realizada con la herramienta [Trello](https://trello.com/)
 ### Versiones
 
 **Versión 1.0.0**
+---
+Se han añadido colores a la terminal
+**Versión 1.0.1** 
 
 
 ___

@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const linkExtractor = require('./linkExtractor');
 const options = {};
+const colors = require('colors');
 
 // Verifica si ruta es absoluta
 const routeIsAbsolute = () => {
@@ -38,7 +39,7 @@ exports.mdLinks = () => {
   if (routeConstruction()) { // Si existe la ruta, se realiza el análisis de archivos y/o directorios
     let stats = fs.statSync(routeConstruction());
     if (stats.isFile()) {
-      console.log('ruta corresponde a un archivo');
+      console.log('ruta corresponde a un archivo'.yellow);
       let fileMD = routeConstruction();
       fs.readFile(fileMD, 'utf8', (err, data) => {
         if (err) {
@@ -51,25 +52,25 @@ exports.mdLinks = () => {
           lineLinks.forEach(element => {
             fetch(element.href, fileMD).then((response) => {
               if (options.validate === '--validate') {
-                console.log(fileMD + ' ' + element.href + ' ' + '  linea en documento: ' + element.line + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
+                console.log(fileMD.green + ' ' + element.href + ' ' + '  linea en documento: ' + element.line + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
               } else {
-                console.log(fileMD + ' ' + element.href + '  linea en documento: ' + element.line);
+                console.log(fileMD.green + ' ' + element.href + '  linea en documento: ' + element.line);
               }
             }).catch((error) => {
-              console.log(fileMD + ' ' + element.href + '  linea en documento: ' + element.line + '  ' + 'link caído');
+              console.log(colors.red(fileMD + ' ' + element.href + '  linea en documento: ' + element.line + '  ' + 'link caído'));
             });
           });
         }
       });     
     } else if (stats.isDirectory()) {
-      console.log('ruta corresponde a un directorio');
+      console.log('ruta corresponde a un directorio'.yellow);
       fs.readdir(routeConstruction(), (error, files) => {
         files.forEach(file => {
           if (path.extname(file) === '.md') {
-            console.log('se han encontrado archivos .md:');
+            console.log('se han encontrado archivos .md:'.yellow);
             console.log(file);
             let fileMD = routeConstruction() + '\\' + file;
-            console.log(fileMD);
+            console.log(fileMD.green);
             fs.readFile(fileMD, 'utf8', (err, data) => {
               if (err) {
                 console.log(err.message);
@@ -81,18 +82,18 @@ exports.mdLinks = () => {
                 lineLinks.forEach(element => {
                   fetch(element.href, fileMD).then((response) => {
                     if (options.validate === '--validate') {
-                      console.log(fileMD + ' ' + element.href + ' ' + '  linea en documento: ' + element.line + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
+                      console.log(fileMD.green + ' ' + element.href + ' ' + '  linea en documento: ' + element.line + ' ' + 'Status: ' + response.status + '  ' + response.statusText);
                     } else {
-                      console.log(fileMD + ' ' + element.href + '  linea en documento: ' + element.line);
+                      console.log(fileMD.green + ' ' + element.href + '  linea en documento: ' + element.line);
                     }
                   }).catch((error) => {
-                    console.log(fileMD + ' ' + element.href + '  linea en documento: ' + element.line + '  ' + 'link caído');
+                    console.log(colors.red(fileMD + ' ' + element.href + '  linea en documento: ' + element.line + '  ' + 'link caído'));
                   });
                 });
               }
             });
           } else {
-            console.log('No se encontraron archivos .md');
+            console.log(colors.red('No se encontraron archivos .md'));
           }
         });
       });
