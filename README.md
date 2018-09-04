@@ -58,10 +58,10 @@ La planificación fue realizada con la herramienta [Trello](https://trello.com/)
 ### Versiones
 
 **Versión 1.0.0**
+**Versión 1.0.1** Se han añadido colores a la terminal
 
-Se han añadido colores a la terminal
-**Versión 1.0.1** 
-
+### Link Proyecto en npm
+[md-status](https://www.npmjs.com/package/md-status)
 
 ___
 
