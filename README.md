@@ -54,6 +54,7 @@ Al ser ejecutados los comandos correctamente, la libería mostrará en la termin
 ### Planificación
 
 La planificación fue realizada con la herramienta [Trello](https://trello.com/).
+[Planificación](https://trello.com/b/k30s3Wfv/markdown-links).
 
 ### Versiones
 
